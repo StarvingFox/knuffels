@@ -41,19 +41,20 @@ public class MazeHttpClient {
                     .uri(uri)
                     .body(Mono.just(mazeAnswer),MazeAnswer.class)
                     .retrieve()
-                    .onStatus(HttpStatus::isError, clientResponse -> {
-                        log.error("ERROR");
-                        return Mono.error(new NotCorrectException("Some error"));
-                    })
                     .onStatus(HttpStatus::is4xxClientError, clientResponse -> {
                         log.error("answer incorrect");
                         return Mono.error(new NotCorrectException(clientResponse.toString()));
+                    })
+                    .onStatus(HttpStatus::isError, clientResponse -> {
+                        log.error("other error");
+                        return Mono.error(new NotCorrectException("Some error"));
                     })
                     .toBodilessEntity().block();
         }catch (Exception e){
             log.error(e.getMessage());
             return false;
         }
+        log.info("[ SUCCES ]");
         return true;
     }
 }
