@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface ChallengeSolver {
 
-    String solve(String parameter);
-    String getChallengeString();
+
+    Object solve(String parameter);
+
 }

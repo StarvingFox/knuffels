@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
+@Component("What is the Perfect Number in the nth position (1-based)?")
 public class PerfectNumberSolver implements ChallengeSolver {
     @Override
     public String solve(String parameter) {
@@ -16,14 +16,12 @@ public class PerfectNumberSolver implements ChallengeSolver {
         while (m.find()){
             numebr =  Integer.parseInt(m.group());
            return perfectNumber(numebr)?"Y":"N";
+
         }
         return null;
     }
 
-    @Override
-    public String getChallengeString() {
-        return "What is the Perfect Number in the nth position (1-based)?";
-    }
+
 
     public boolean perfectNumber(double number){
         int sum = 0;

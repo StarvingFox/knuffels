@@ -2,7 +2,7 @@ package com.exodia0.htfjavamaze.challengeSolvers;
 
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("Reverse the following String")
 public class ReverseStringSolver implements ChallengeSolver {
     @Override
     public String solve(String parameter) {
@@ -16,8 +16,4 @@ public class ReverseStringSolver implements ChallengeSolver {
 
     }
 
-    @Override
-    public String getChallengeString() {
-        return "Reverse the following String";
-    }
 }
