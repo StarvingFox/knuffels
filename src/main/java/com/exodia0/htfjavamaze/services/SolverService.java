@@ -11,7 +11,6 @@ public class SolverService {
 
     public SolverService(MazeHttpClient httpClient) {
         this.httpClient = httpClient;
-        solve();
     }
 
     @Async
