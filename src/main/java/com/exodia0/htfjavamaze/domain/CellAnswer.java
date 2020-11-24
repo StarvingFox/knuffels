@@ -8,4 +8,12 @@ public class CellAnswer {
     private String challengeId;
     private int x;
     private int y;
+
+
+    public CellAnswer(String answer, String challengeId, int x, int y) {
+        this.answer = answer;
+        this.challengeId = challengeId;
+        this.x = x;
+        this.y = y;
+    }
 }

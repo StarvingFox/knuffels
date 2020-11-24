@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+	compile 'org.eclipse.jetty:jetty-reactive-httpclient:1.0.3'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-web-services'
 	compileOnly 'org.projectlombok:lombok'

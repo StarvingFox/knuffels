@@ -27,26 +27,29 @@ public class MazeHttpClient {
                 .retrieve()
                 .bodyToMono(Maze.class)
                 .block();
-
-//        log.info(maze.toString());
-
         return maze;
     }
 
     //todo deze nakijken
     public boolean postAnswer(String mazeId, MazeAnswer mazeAnswer) {
+
+        log.info("Sending: "+ mazeAnswer.toString());
         String uri = BASE_URI + "/maze/" + mazeId;
         try {
             webClient
                     .post()
                     .uri(uri)
-                    .bodyValue(mazeAnswer)
+                    .body(Mono.just(mazeAnswer),MazeAnswer.class)
                     .retrieve()
+                    .onStatus(HttpStatus::isError, clientResponse -> {
+                        log.error("ERROR");
+                        return Mono.error(new NotCorrectException("Some error"));
+                    })
                     .onStatus(HttpStatus::is4xxClientError, clientResponse -> {
-                        log.info("answer incorrect");
+                        log.error("answer incorrect");
                         return Mono.error(new NotCorrectException(clientResponse.toString()));
                     })
-                    .toBodilessEntity();
+                    .toBodilessEntity().block();
         }catch (Exception e){
             log.error(e.getMessage());
             return false;
