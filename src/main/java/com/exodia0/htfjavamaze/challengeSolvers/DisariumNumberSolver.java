@@ -12,7 +12,7 @@ public class DisariumNumberSolver implements ChallengeSolver {
         double inputNumber = Double.parseDouble(parameter);
         for(int i = 0; i<length; i++){
             double number = Double.parseDouble(numbers[i]);
-            sum += Math.pow(number, i);
+            sum += Math.pow(number, i+1);
         }
 
         return sum==inputNumber?"Y":"N";

@@ -50,7 +50,6 @@ public class SolverService {
                     answer.getCells().add(new CellAnswer(solution, cell.getChallengeId(), cell.getX(), cell.getY()));
                 } else {
                     answer.getCells().add(new CellAnswer(null, null, cell.getX(), cell.getY()));
-//                }
                 }
             }
 
