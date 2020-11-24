@@ -19,11 +19,13 @@ public class PathFinder {
 
     public List<Cell> findPath(Maze maze) {
         log.info("SOLVING maze: " + maze.getMazeId());
-        int size = maze.getCells().stream().map(Cell::getX).max(Integer::compareTo).get();
+        int size = maze.getMaxCoord() + 1;
 
         log.info("maze of size: " + size + "x" + size);
         Cell start = getEntry(maze);
-//        boolean[][] visited = new boolean[size][size];
+        boolean[][] visited = new boolean[size][size];
+
+        maze.setVisited(visited);
 
         List<Cell> path = new ArrayList<>();
         if (explore(maze, start, path)) {
@@ -33,34 +35,42 @@ public class PathFinder {
     }
 
     private boolean explore(Maze maze, Cell cell, List<Cell> path) {
-        if (
-                !maze.isValidLocation(row, col)
-                        || maze.isWall(row, col)
-                        || maze.isExplored(row, col)
-        ) {
+        // if explored we stop recursion and continue with other path
+        if (maze.isExplored(cell.getX(), cell.getY())) {
             return false;
         }
 
+        // add cell to the path
         path.add(cell);
-        maze.setVisited(row, col, true);
+        // we set the cell as being visited
+        maze.setIsVisited(cell.getX(), cell.getY(), true);
 
-        if (maze.isExit(row, col)) {
+        // if we have reached the destination we return true, this way we return the full path
+        if (cell.getX() == maze.getMaxCoord() && cell.getY() == maze.getMaxCoord()) {
             return true;
         }
 
+        // we add the sides for the borders of the maze
+        addSides(cell, maze);
+
+        // we attempt to move to all open sides of the cell
         for (Side side : SIDES) {
-            if ()
-                Coordinate coordinate = getNextCoordinate(
-                        row, col, direction[0], direction[1]);
-            if (
-                    explore(
-                            maze,
-                            coordinate.getX(),
-                            coordinate.getY(),
-                            path
-                    )
-            ) {
-                return true;
+            try{
+                // we check if the side is a wall, if the side is contained in the sides of the cell it is a wall
+                if (!cell.getSides().contains(side)) {
+                    // we get the next cell
+                    Cell nextCell = getNextCell(maze, cell, side);
+                    if (
+                            // we continue down the path with the next cell
+                        explore(maze, nextCell, path)
+                ) {
+                        // if we find the end in recursion this will return true, eventually returning the path
+                    return true;
+                }
+            }
+            }catch (Exception e){
+                // catch if we try to fetch a non existant cell, should never happen
+                log.info("fout bij ophalen van cell, zou niet mogen");
             }
         }
 
@@ -72,8 +82,22 @@ public class PathFinder {
         return maze.getCells().stream().filter(c -> c.getX() == 0 && c.getY() == 0).findFirst().get();
     }
 
-    public boolean isValidLocation(int x, int y) {
+    public void addSides(Cell cell, Maze maze){
+        if(cell.getX() == maze.getMaxCoord()){
+            cell.getSides().add(Side.EAST);
+        }
 
+        if(cell.getX() == 0){
+            cell.getSides().add(Side.WEST);
+        }
+
+        if(cell.getY() == maze.getMaxCoord()){
+            cell.getSides().add(Side.SOUTH);
+        }
+
+        if(cell.getY() == 0){
+            cell.getSides().add(Side.NORTH);
+        }
     }
 
     public Cell getNextCell(Maze maze, Cell cell, Side side) {
@@ -94,6 +118,6 @@ public class PathFinder {
                 break;
         }
 
-        return maze.getCells().stream().filter(c -> c.getX() == x && c.getY() == y).findFirst().get();
+        return maze.getCell(x, y);
     }
 }

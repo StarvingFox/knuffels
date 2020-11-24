@@ -28,7 +28,7 @@ public class MazeHttpClient {
                 .bodyToMono(Maze.class)
                 .block();
 
-        log.info(maze.toString());
+//        log.info(maze.toString());
 
         return maze;
     }

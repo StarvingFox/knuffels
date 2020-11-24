@@ -14,6 +14,6 @@ public class MazeSolverConfiguration {
 
     @Bean
     public WebClient webClient() {
-        return WebClient.builder().baseUrl("maze-staging.bewire.org").defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build();
+        return WebClient.builder().baseUrl("maze-staging.bewire.org").defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).codecs(clientCodecConfigurer -> clientCodecConfigurer.defaultCodecs().maxInMemorySize(16 * 1024 * 1024)).build();
     }
 }
