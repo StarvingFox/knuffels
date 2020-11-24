@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,7 @@ public class SolverService {
             Maze maze = httpClient.getMaze();
             List<Cell> path = pathFinder.findPath(maze);
             MazeAnswer answer = new MazeAnswer();
+            answer.setCells(new ArrayList<>());
             if (path.isEmpty()) {
                 log.info("No path");
             }
