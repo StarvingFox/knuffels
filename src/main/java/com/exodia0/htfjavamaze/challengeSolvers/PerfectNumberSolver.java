@@ -6,24 +6,21 @@ import org.springframework.stereotype.Component;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
+@Component("What is the Perfect Number in the nth position (1-based)?")
 public class PerfectNumberSolver implements ChallengeSolver {
     @Override
-    public Boolean solve(String parameter) {
+    public String solve(String parameter) {
         Pattern p = Pattern.compile("\\d+");
         Matcher m = p.matcher(parameter);
         int numebr = 0;
         while (m.find()){
             numebr =  Integer.parseInt(m.group());
-            return perfectNumber(numebr);
+            return ""+perfectNumber(numebr);
         }
         return null;
     }
 
-    @Override
-    public String getChallengeString() {
-        return "What is the Perfect Number in the nth position (1-based)?";
-    }
+
 
     public boolean perfectNumber(double number){
         int sum = 0;

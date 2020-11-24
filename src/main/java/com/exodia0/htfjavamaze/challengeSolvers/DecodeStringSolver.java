@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Base64;
 
-@Component
+@Component("Decode the following String. It uses a quite common encoding, find out which!")
 public class DecodeStringSolver implements ChallengeSolver{
     @Override
     public String solve(String parameter) {
@@ -12,8 +12,5 @@ public class DecodeStringSolver implements ChallengeSolver{
         return new String(decodedBytes);
     }
 
-    @Override
-    public String getChallengeString() {
-        return "Decode the following String. It uses a quite common encoding, find out which!";
-    }
+
 }
