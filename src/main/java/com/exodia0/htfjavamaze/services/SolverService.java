@@ -44,6 +44,7 @@ public class SolverService {
                     ChallengeSolver solver = challengeSolvers.get(cell.getChallenge());
                     if (solver == null) {
                         log.info("[ NO SOLVER ] "+cell.getChallenge());
+                        log.info("[  PARAMETERS ] "+cell.getChallengeParameters());
                         skip = true;
                         break;
                     }
