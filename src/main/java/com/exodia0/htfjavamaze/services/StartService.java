@@ -17,7 +17,7 @@ public class StartService {
     // async allows us to solve multiple mazes at one time
     @Scheduled(initialDelay = 1000, fixedRate = 10000000L)
     public void start(){
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             bruteForceSimpleMazeSolver.solve();
         }
 
