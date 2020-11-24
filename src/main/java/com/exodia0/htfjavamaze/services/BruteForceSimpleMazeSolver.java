@@ -27,30 +27,30 @@ public class BruteForceSimpleMazeSolver {
             var maze = httpClient.getMaze();
             if(maze.getCells().size() <= 4){
 //                log.info(maze.toString());
-                sendAnswer(maze.getMazeId(), getCellsBruteForce(maze));
+                getCellsBruteForce(maze);
             }
         }
     }
 
-    public List<CellAnswer> getCellsBruteForce(Maze maze){
+    public void getCellsBruteForce(Maze maze){
         List<CellAnswer> answers = new ArrayList<>();
-        var firstCell = maze.getCells().stream().filter(c -> c.getX() == 0 && c.getY() == 0).findFirst().get();
-        answers.add(new CellAnswer("", "", firstCell.getX(), firstCell.getY()));
-        if(firstCell.getSides().contains(Side.EAST)){
-            answers.add(new CellAnswer("", "", 1, 0));
-            answers.add(new CellAnswer("", "", 1, 1));
-        }
-        else{
-            answers.add(new CellAnswer("", "", 0, 1));
-            answers.add(new CellAnswer("", "", 1, 1));
-        }
+        answers.add(new CellAnswer(null, null, 0, 0));
+        answers.add(new CellAnswer(null, null, 1, 0));
+        answers.add(new CellAnswer(null, null, 1, 1));
 
-        return answers;
+        sendAnswer(maze.getMazeId(), answers);
+
+        List<CellAnswer> answers2 = new ArrayList<>();
+        answers2.add(new CellAnswer(null, null, 0, 0));
+        answers2.add(new CellAnswer(null, null, 0, 1));
+        answers2.add(new CellAnswer(null, null, 1, 1));
+        sendAnswer(maze.getMazeId(), answers2);
     }
 
     public void sendAnswer(String mazeId, List<CellAnswer> cells){
         MazeAnswer mazeAnswer = new MazeAnswer();
         mazeAnswer.setCells(cells);
+        httpClient.postAnswer(mazeId, mazeAnswer);
 //        if(httpClient.postAnswer(mazeId, mazeAnswer)){
 //            log.info("[SUCCESS] "+ mazeId);
 //        }else{
