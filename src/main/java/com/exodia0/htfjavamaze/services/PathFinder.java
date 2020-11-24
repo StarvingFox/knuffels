@@ -39,12 +39,10 @@ public class PathFinder {
         if (maze.isExplored(cell.getX(), cell.getY())) {
             return false;
         }
-
         // add cell to the path
         path.add(cell);
         // we set the cell as being visited
         maze.setIsVisited(cell.getX(), cell.getY(), true);
-
         // if we have reached the destination we return true, this way we return the full path
         if (cell.getX() == maze.getMaxCoord() && cell.getY() == maze.getMaxCoord()) {
             return true;

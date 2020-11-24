@@ -40,9 +40,10 @@ public class SolverService {
                 log.info("No path");
             }
             for (Cell cell : path) {
-                if (cell.isDecisionPoint()) {
+                if (cell.isDecisionPoint() || cell.getChallenge() != null) {
                     ChallengeSolver solver = challengeSolvers.get(cell.getChallenge());
                     if (solver == null) {
+                        log.info("[ NO SOLVER ] "+cell.getChallenge());
                         skip = true;
                         break;
                     }
@@ -54,6 +55,7 @@ public class SolverService {
             }
 
             if (skip) {
+
                 continue;
             }
 
