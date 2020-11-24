@@ -11,8 +11,12 @@ public class StartService {
         this.solverService = solverService;
     }
 
+    // starts the async solving of mazes
+    // async allows us to solve multiple mazes at one time
     @Scheduled(initialDelay = 1000)
     public void start(){
-        solverService.solve();
+        for (int i = 0; i < 10; i++) {
+            solverService.solve();
+        }
     }
 }

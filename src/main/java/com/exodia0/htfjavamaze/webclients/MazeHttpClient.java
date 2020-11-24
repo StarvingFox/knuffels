@@ -1,9 +1,12 @@
 package com.exodia0.htfjavamaze.webclients;
 
+import com.exodia0.htfjavamaze.domain.MazeAnswer;
 import com.exodia0.htfjavamaze.domain.Maze;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @Component
@@ -16,17 +19,37 @@ public class MazeHttpClient {
         this.webClient = webClient;
     }
 
-    public Maze getMaze(){
-        String uri = BASE_URI+"/maze?teamId="+TEAM_ID;
-       Maze maze = webClient
+    public Maze getMaze() {
+        String uri = BASE_URI + "/maze?teamId=" + TEAM_ID;
+        Maze maze = webClient
                 .get()
                 .uri(uri)
                 .retrieve()
                 .bodyToMono(Maze.class)
                 .block();
 
-       log.info(maze.toString());
+        log.info(maze.toString());
 
-       return maze;
+        return maze;
+    }
+
+    //todo deze nakijken
+    public boolean postAnswer(String mazeId, MazeAnswer mazeAnswer) {
+        String uri = BASE_URI + "/maze/" + mazeId;
+        try {
+            webClient
+                    .post()
+                    .uri(uri)
+                    .retrieve()
+                    .onStatus(HttpStatus::is4xxClientError, clientResponse -> {
+                        log.info("answer incorrect");
+                        return Mono.error(new NotCorrectException(clientResponse.toString()));
+                    })
+                    .toBodilessEntity();
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return false;
+        }
+        return true;
     }
 }
