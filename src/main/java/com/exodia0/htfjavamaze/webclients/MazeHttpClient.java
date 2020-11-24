@@ -27,8 +27,6 @@ public class MazeHttpClient {
                 .retrieve()
                 .bodyToMono(Maze.class)
                 .block();
-
-        //log.info(maze.toString());
         return maze;
     }
 
@@ -45,7 +43,7 @@ public class MazeHttpClient {
                     .retrieve()
                     .onStatus(HttpStatus::isError, clientResponse -> {
                         log.error("ERROR");
-                        return Mono.error(new NotCorrectException("KKR"));
+                        return Mono.error(new NotCorrectException("Some error"));
                     })
                     .onStatus(HttpStatus::is4xxClientError, clientResponse -> {
                         log.error("answer incorrect");

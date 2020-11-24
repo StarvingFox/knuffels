@@ -15,7 +15,8 @@ public class PerfectNumberSolver implements ChallengeSolver {
         int numebr = 0;
         while (m.find()){
             numebr =  Integer.parseInt(m.group());
-            return ""+perfectNumber(numebr);
+           return perfectNumber(numebr)?"Y":"N";
+
         }
         return null;
     }
