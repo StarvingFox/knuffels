@@ -16,6 +16,4 @@ public class Cell {
     private List<Side> sides;
     private int x;
     private int y;
-
-
 }

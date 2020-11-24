@@ -40,6 +40,7 @@ public class MazeHttpClient {
             webClient
                     .post()
                     .uri(uri)
+                    .bodyValue(mazeAnswer)
                     .retrieve()
                     .onStatus(HttpStatus::is4xxClientError, clientResponse -> {
                         log.info("answer incorrect");

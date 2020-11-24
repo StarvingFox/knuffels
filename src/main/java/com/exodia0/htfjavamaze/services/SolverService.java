@@ -17,7 +17,6 @@ public class SolverService {
     @Async
     public void solve(){
         httpClient.getMaze();
-
         //todo: find best path
         //TODO: solve challenges for best path
     }
