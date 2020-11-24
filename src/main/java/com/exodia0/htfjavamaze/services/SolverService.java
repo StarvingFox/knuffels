@@ -20,7 +20,5 @@ public class SolverService {
 
         //todo: find best path
         //TODO: solve challenges for best path
-
-
     }
 }

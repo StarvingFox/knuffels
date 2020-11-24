@@ -1,5 +1,7 @@
 package com.exodia0.htfjavamaze.domain;
 
+
+
 import lombok.Data;
 
 import java.util.List;
@@ -14,4 +16,6 @@ public class Cell {
     private List<Side> sides;
     private int x;
     private int y;
+
+
 }
