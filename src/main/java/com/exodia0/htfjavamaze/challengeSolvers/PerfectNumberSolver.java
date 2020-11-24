@@ -9,13 +9,13 @@ import java.util.regex.Pattern;
 @Component
 public class PerfectNumberSolver implements ChallengeSolver {
     @Override
-    public Boolean solve(String parameter) {
+    public String solve(String parameter) {
         Pattern p = Pattern.compile("\\d+");
         Matcher m = p.matcher(parameter);
         int numebr = 0;
         while (m.find()){
             numebr =  Integer.parseInt(m.group());
-            return perfectNumber(numebr);
+           return perfectNumber(numebr)?"Y":"N";
         }
         return null;
     }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DisariumNumberSolver implements ChallengeSolver {
     @Override
-    public Object solve(String parameter) {
+    public String solve(String parameter) {
         var length = parameter.length();
         var numbers = parameter.split("");
         double sum = 0;

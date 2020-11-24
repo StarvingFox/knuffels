@@ -19,7 +19,7 @@ public class StartService {
     // async allows us to solve multiple mazes at one time
     @PostConstruct
     public void start() {
-        bruteForceSimpleMazeSolver.solve();
         solverService.solve();
+        bruteForceSimpleMazeSolver.solve();
     }
 }
